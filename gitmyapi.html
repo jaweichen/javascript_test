@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+
+<div id="demo">
+	
+
+<ul>
+	<li v-for="ja in commits">
+		{{ja.owner.login}}<br/>
+
+<a :href="ja.html_url" target="_blank">{{ja.name}}</a>-{{ja.created_at.replace(/T|Z/g," ")}}
+
+
+	</li>
+</ul>
+
+
+
+
+
+
+
+</div>
+
+
+
+<script>
+	
+
+var apiurl="https://api.github.com/users/jaweichen/repos?type=all&per_page=3";
+
+var demo=new Vue({
+
+el:"#demo",
+data:{
+
+commits:null
+
+
+},
+created:function(){
+
+this.getjaweichen();
+
+
+},
+
+
+methods:{
+
+getjaweichen:function(){
+var self=this;
+var xhr=new XMLHttpRequest();
+xhr.open("GET",apiurl);
+
+xhr.onload=function(){
+
+
+self.commits=JSON.parse(xhr.responseText);
+console.log(self.commits);
+
+
+}
+
+xhr.send();
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+})
+
+
+
+
+</script>
+
+
+
+	
+</body>
+</html>
